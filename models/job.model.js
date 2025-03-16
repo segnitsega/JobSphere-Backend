@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
 
 const jobSchema = new mongoose.Schema({
     title: String,
@@ -15,5 +15,4 @@ const jobSchema = new mongoose.Schema({
 
 const job = mongoose.model("job", jobSchema)
 
-export default job 
-
+module.exports = job
