@@ -34,7 +34,7 @@ const handleSignup = async(req, res) => {
     }  
 }
 
-export const handleLogin = async(req, res) => {
+const handleLogin = async(req, res) => {
     if(Object.keys(req.body).length === 0){
         return res.status(400).json({ message: "login request body is empty" })
     }

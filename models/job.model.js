@@ -7,7 +7,7 @@ const jobSchema = new mongoose.Schema({
     description: String,
     company: String,
     logo: String,
-    isBookmarked: Boolean,
+    isBookmarked: {type: Boolean, default: false},
     location: String,
     experienceLevel: String,
     currency: String

@@ -69,7 +69,7 @@ const updateJob = async(req, res)=>{
     if(Object.keys(req.body).length === 0) res.status(400).json({messgae: "request body empty"})
 
     try{
-        const updatedJob = await job.findByIdAndUpdate(id, req.body, {runValidators: true})
+        const updatedJob = await job.findByIdAndUpdate(id, req.body, { new: true, runValidators: true })
         res.status(200).json({ message: "Job updated successfully", updatedJob })
     }
     catch(e){
