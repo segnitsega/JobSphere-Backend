@@ -61,15 +61,21 @@ const validateJob = [
         .includes(value.toUpperCase()))
         .withMessage('Currency must be one of "USD", "EUR", or "INR"')
 ,
-
+    (req, res, next) => {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()){
+            return res.status(400).json({ errors: errors.array() })
+        }
+        next();
+    }
 ]
 
-const handleJobValidationErrors = (req, res, next) => {
-    const errors = validationResult(req)
-    if(!errors.isEmpty()){
-        return res.status(400).json({ errors: errors.array() })
-    }
-    next();
- }
+// const handleJobValidationErrors = (req, res, next) => {
+//     const errors = validationResult(req)
+//     if(!errors.isEmpty()){
+//         return res.status(400).json({ errors: errors.array() })
+//     }
+//     next();
+//  }
 
- module.exports = { validateJob, handleJobValidationErrors }
+ module.exports = { validateJob }
