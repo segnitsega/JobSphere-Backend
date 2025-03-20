@@ -37,7 +37,7 @@ const handleSignup = async(req, res) => {
 const handleLogin = async(req, res) => {
     if(Object.keys(req.body).length === 0){
         return res.status(400).json({ message: "login request body is empty" })
-    }
+    } 
     const {email, password} = req.body
     const foundUser = await user.findOne({ email })
     if(!foundUser){
@@ -46,8 +46,15 @@ const handleLogin = async(req, res) => {
     bcrypt.compare(password, foundUser.password, (err, result) => {
         if(result){
             const token = jwt.sign({id: foundUser.id, email: foundUser.email, role: foundUser.role}, secretKey) 
-            res.status(201).json({message: "Login succesfull", token})
-        }
+            // res.status(201).json({message: "Login succesfull", token})
+            res.status(201).cookie('token', token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'Strict',
+                maxAge: 10 * 60 * 60,
+            }).json({message: "Login Successful"})
+            console.log(token)
+        } 
         else{
             res.status(401).json({message: "Invalid password"})
         }
@@ -55,4 +62,5 @@ const handleLogin = async(req, res) => {
  
 }
 
-module.exports = { handleSignup, handleLogin }
+
+module.exports = { handleSignup, handleLogin } 

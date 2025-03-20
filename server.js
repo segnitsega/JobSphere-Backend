@@ -24,5 +24,4 @@ const startServer = async() => {
 app.use('/api/jobs', jobRouter)
 app.use('/api/user', userRouter)
 
-startServer()
-console.log(__dirname)
+startServer() 
